@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mini Docuserie</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Header */
+    header {
+      display: flex;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: inherit;
+      color: rgb(16, 80, 9);
+      position: relative;
+      z-index: 300; /* Para que quede encima */
+    }
+
+    header img {
+      height: 50px;
+      margin-right: 10px;
+    }
+
+    header h1 {
+      font-size: 1.5em;
+    }
+
+    nav {
+      margin-left: auto;
+      position: relative;
+      z-index: 100; /* Mantener sobre otros */
+    }
+
+    .nav-menu {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-menu li a {
+      text-decoration: none;
+      color: rgb(18, 100, 9);
+      font-weight: bold;
+      padding: 5px 10px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .nav-menu li a:hover {
+      background-color: #dfffe0;
+      color: rgb(0, 255, 0);
+    }
+
+    /* Botón hamburguesa */
+    .menu-toggle {
+      display: none;
+      cursor: pointer;
+      margin-left: auto;
+      font-size: 1.8rem;
+      color: rgb(18, 100, 9);
+      user-select: none;
+      position: relative;
+      z-index: 400; /* Que quede encima */
+    }
+
+    /* Responsive - móvil */
+    @media (max-width: 768px) {
+      /* Ocultar menú horizontal */
+      .nav-menu {
+        flex-direction: column;
+        background-color: rgb(180, 214, 176);
+        color: #222;
+        position: absolute;
+        top: 20px; /* justo debajo del header */
+        right: 20px; /* alineado a la derecha */
+        width: 160px;
+        max-height: 0; /* oculto inicialmente */
+        overflow: hidden;
+        border-radius: 5px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        transition: max-height 0.3s ease, display 0.3s ease;
+        display: none; /* oculto por defecto */
+        z-index: 150;
+      }
+
+      /* Menú desplegado */
+      nav.active .nav-menu {
+        max-height: 300px; /* suficiente para todos los links */
+        display: flex; /* mostrar */
+        overflow: visible;
+      }
+
+      .nav-menu li {
+        margin: 10px 0;
+      }
+
+      /* Mostrar botón hamburguesa */
+      .menu-toggle {
+        display: block;
+      }
+    }
+
+    /* Container principal */
+    .videos-container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 0 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    /* Estilo título */
+    .video-title {
+      text-align: center;
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    /* Estilo responsive iframe */
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%; /* 16:9 aspect ratio */
+      height: 0;
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    @media (max-width: 480px) {
+      .video-title {
+        font-size: 1.1rem;
+      }
+    }
+
+    /* Footer */
+    footer {
+      background-color: #222;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .qr {
+      margin-top: 10px;
+    }
+
+    .qr img {
+      width: 120px;
+      height: 120px;
+    }
+
+
+    .footer {
+  background-color: #1b4332;
+  color: #fff;
+  padding: 20px 15px;
+  font-family: 'Segoe UI', sans-serif;
+  text-align: center;
+}
+
+.footer-container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.footer-container h3 {
+  font-size: 1.6rem;
+  margin: 0 0 8px;
+  color: #aef8c3;
+}
+
+.footer-container i {
+  font-size: 2.5rem;
+  margin-bottom: 8px;
+  display: block;
+  color: #fff;
+}
+
+.footer-container p {
+  font-size: 0.9rem;
+  color: #ccc;
+  margin: 0 0 12px;
+}
+
+.footer-qr img {
+  width: 110px;
+  height: 110px;
+  border-radius: 8px;
+  border: 2px solid #fff;
+  display: inline-block;
+}
+
+
+/* Responsive: QR debajo en móviles */
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footer-left {
+    text-align: center;
+  }
+
+  .footer-right {
+    margin-top: 20px;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </style>
+</head>
+<body>
+
+  <!-- Header con logo -->
+  <header>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <img src="img/png-transparent-green-leaf-leaf-green-plant-euclidean-leaf-maple-leaf-leaves-leaf-border-thumbnail.png" alt="Logo" />
+    <h1>ECOHEROES</h1>
+
+    <!-- Botón Hamburguesa -->
+    <div class="menu-toggle" id="menu-toggle">
+      <i class="fas fa-bars"></i>
+    </div>
+
+    <nav id="nav-menu">
+      <ul class="nav-menu">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="#footer">Regístrate</a></li>
+        <li><a href="nosotros.html">Nosotros</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Contenedor de videos -->
+  <main class="videos-container">
+
+    <div>
+      <p class="video-title">MINI DOCUSERIE 1</p>
+      <div class="video-wrapper">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/ToCKL_3Odm4?si=ukSqk9IpmZM8xNdx" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      </div>
+    </div>
+
+    <div>
+      <p class="video-title">MINI DOCUSERIE 2</p>
+      <div class="video-wrapper">
+        <iframe width="560" height="315"  src="https://www.youtube.com/embed/dvjvMJHiv6A?si=vpUrXK3g4yAc2UhG" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      </div>
+    </div>
+
+  </main>
+  <!-- Footer con código QR -->
+<footer class="footer" id="footer">
+  <div class="footer-container">
+    <h3>Únete</h3>
+    <i class="fas fa-user-circle"></i>
+    <p>www.ecoheroes.com - Todos los derechos reservados</p>
+    <div class="footer-qr">
+      <img src="img/frame.png" alt="Código QR ECOHEROES" />
+    </div>
+  </div>
+</footer>
+
+  <script>
+    const menuToggle = document.getElementById('menu-toggle');
+    const nav = document.getElementById('nav-menu');
+
+    menuToggle.addEventListener('click', () => {
+      nav.classList.toggle('active');
+    });
+  </script>
+
+</body>
+</html>
